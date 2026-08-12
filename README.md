@@ -59,4 +59,8 @@ If you use this code or data, please cite the thesis:
 
 ## License
 
-[Choose a license, e.g. MIT for code, CC-BY for the thesis text, before publishing]
+## License
+
+Code (`full_pipeline_v2.py`, `run_pipeline.ipynb`) is released under the MIT License (see `LICENSE`).
+
+Data files are compiled from publicly available government sources (NPCI, RBI, TRAI, Ministry of Health and Family Welfare, GST Council, PLFS, MoSPI), accessed via Dataful — see the Data section above for original sources. They are shared here for reproducibility of this thesis; usage of the underlying data remains subject to the original sources' own terms.
