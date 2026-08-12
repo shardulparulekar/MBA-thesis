@@ -6,6 +6,10 @@ Code and data for the Master's thesis of the same name (Amsterdam Business Schoo
 
 Click the badge above to run the full pipeline in your browser, no installation needed. Takes a minute or two to launch, then a few minutes to run.
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21905716.svg)](https://doi.org/10.5281/zenodo.21905716)
+
+The DOI badge above is a permanent, citable snapshot of this exact code and data, archived by Zenodo. Use it when citing this repository; the live GitHub link may change, but this reference won't.
+
 ## What this is
 
 A two-stage analysis of UPI (Unified Payments Interface) adoption intensity across 36 Indian states and union territories, April 2023 to December 2025.
