@@ -22,7 +22,7 @@ Full methodology and results are in the thesis itself.
 **Option 2 — locally:**
 ```bash
 git clone https://github.com/shardulparulekar/MBA-thesis.git
-cd YOUR-REPO-NAME
+cd MBA-thesis
 pip install -r requirements.txt
 python full_pipeline_v2.py
 ```
@@ -55,7 +55,7 @@ All source files are included in this repo (~11MB total), so no separate downloa
 
 If you use this code or data, please cite the thesis:
 
-> [Your name]. (2026). *Explaining and Predicting State-Level Variation in UPI Adoption Intensity Across India.* Master's thesis, Amsterdam Business School, University of Amsterdam.
+> Shardul Parulekar. (2026). *Explaining and Predicting State-Level Variation in UPI Adoption Intensity Across India.* Master's thesis, Amsterdam Business School, University of Amsterdam.
 
 ## License
 
