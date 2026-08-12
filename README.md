@@ -2,7 +2,7 @@
 
 Code and data for the Master's thesis of the same name (Amsterdam Business School, University of Amsterdam).
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/YOUR-GITHUB-USERNAME/YOUR-REPO-NAME/HEAD?labpath=run_pipeline.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/shardulparulekar/MBA-thesis/HEAD?labpath=run_pipeline.ipynb)
 
 Click the badge above to run the full pipeline in your browser, no installation needed. Takes a minute or two to launch, then a few minutes to run.
 
@@ -21,7 +21,7 @@ Full methodology and results are in the thesis itself.
 
 **Option 2 — locally:**
 ```bash
-git clone https://github.com/YOUR-GITHUB-USERNAME/YOUR-REPO-NAME.git
+git clone https://github.com/shardulparulekar/MBA-thesis.git
 cd YOUR-REPO-NAME
 pip install -r requirements.txt
 python full_pipeline_v2.py
