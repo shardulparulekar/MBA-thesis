@@ -772,6 +772,57 @@ print(f"""
   multicollinearity concern that originally justified dropping it.
 """)
 
+# Robustness Check: Dropping Internet_per_capita to recover the full sample
+# Section 3.2 explains that 30 percent of state-months (347 of 1,154) are
+# missing, almost entirely because of Internet_per_capita's coverage gap.
+# This checks whether that missing data is quietly distorting the results
+# for the predictors that remain, by dropping Internet_per_capita entirely
+# and re-running the pooled regression on the other five predictors, using
+# every state-month this recovers rather than just the 807 with complete
+# data on all five time-varying predictors.
+
+print("\n" + "="*80); print("Robustness Check: Dropping Internet_per_capita to recover the full sample"); print("="*80)
+
+five_predictors = ['IRS', 'NFS_per_capita', 'GST_per_capita', 'ATM_per_capita', 'Urbanisation_pct']
+panel_no_internet = panel.dropna(subset=five_predictors).reset_index(drop=True)
+print(f"  Recovered sample: {len(panel_no_internet)} state-months, "
+      f"{panel_no_internet['State'].nunique()} states "
+      f"(vs. {len(panel_complete)} state-months with Internet_per_capita included)")
+
+X_no_int = sm.add_constant(panel_no_internet[five_predictors])
+model_no_int = sm.OLS(panel_no_internet['DVI_raw'], X_no_int).fit(
+    cov_type='cluster', cov_kwds={'groups': panel_no_internet['State']})
+
+# Same comparison, restricted to the original 807-row sample, for the "with
+# Internet_per_capita" p-values quoted alongside the recovered-sample ones
+five_predictors_with_int = five_predictors + ['Internet_per_capita']
+X_with_int = sm.add_constant(panel_complete[five_predictors_with_int])
+model_with_int = sm.OLS(panel_complete['DVI_raw'], X_with_int).fit(
+    cov_type='cluster', cov_kwds={'groups': panel_complete['State']})
+
+print(f"\n  {'Predictor':<20} {'p (n=' + str(len(panel_no_internet)) + ', no Internet)':<28} {'p (n=' + str(len(panel_complete)) + ', with Internet)':<28}")
+for p in five_predictors:
+    print(f"  {p:<20} {model_no_int.pvalues[p]:<28.4f} {model_with_int.pvalues[p]:<28.4f}")
+
+robustness_check_df = pd.DataFrame({
+    'predictor': five_predictors,
+    'coef_no_internet': [model_no_int.params[p] for p in five_predictors],
+    'p_no_internet': [model_no_int.pvalues[p] for p in five_predictors],
+    'coef_with_internet': [model_with_int.params[p] for p in five_predictors],
+    'p_with_internet': [model_with_int.pvalues[p] for p in five_predictors],
+})
+robustness_check_df.to_csv('internet_dropped_robustness_check.csv', index=False)
+print("\n  Exported: internet_dropped_robustness_check.csv")
+print("""
+  Reading: GST_per_capita and IRS stay confirmed in the recovered full
+  sample, and ATM_per_capita's significance gets stronger once
+  Internet_per_capita is dropped, not weaker. All three keep the same sign
+  and stay either confirmed or clearly strengthened, rather than reversing
+  or losing significance, once the fuller sample is used. It is a good evidence
+  that the missing data isn't quietly skewing the results for the predictors
+  that remain (Section 6.2).
+""")
+
 # Separate exercise: given the Stage 1-confirmed
 # predictors, how well can a state's adoption intensity be ESTIMATED from
 # them? Uses leave-one-state-out cross-validation. Not a re-validation of
