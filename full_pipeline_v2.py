@@ -435,7 +435,7 @@ eda_cs = panel_complete.groupby('State').agg(
 eda_cs['Urbanisation_pct'] = eda_cs['State'].map(urbanisation_pct)
 eda_cs = eda_cs.dropna(subset=ALL_PREDICTORS).reset_index(drop=True)
 
-print(f"  DVI_raw skewness: {scipy_stats.skew(eda_cs['DVI_raw']):.3f}")
+print(f"  DVI_raw skewness: {eda_cs['DVI_raw'].skew():.3f}")
 
 # Summary statistics table for DVI_raw and all six predictors
 summary_vars = ['DVI_raw'] + ALL_PREDICTORS
