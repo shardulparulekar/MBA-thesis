@@ -362,6 +362,9 @@ def build_panel(winsor_pct=0.01):
     ts = upi_ts.copy()
     if winsor_pct > 0:
         lo, hi = ts['DVI_raw'].quantile(winsor_pct), ts['DVI_raw'].quantile(1 - winsor_pct)
+        print(f"  Winsorising DVI_raw at the {winsor_pct*100:.0f}st/{100-winsor_pct*100:.0f}th percentiles:")
+        print(f"    Pre-winsorisation: true min={ts['DVI_raw'].min():.3f}, true max={ts['DVI_raw'].max():.3f}, "
+              f"{winsor_pct*100:.0f}st pct={lo:.3f}, {100-winsor_pct*100:.0f}th pct={hi:.3f}")
         ts = ts[(ts['DVI_raw'] >= lo) & (ts['DVI_raw'] <= hi)].copy()
     panel = ts[['State','Year','Month','DVI_raw']].copy()
     panel = panel.merge(nfs_ts[['State','Year','Month','IRS','NFS_per_capita']], on=['State','Year','Month'], how='left')
