@@ -766,10 +766,14 @@ for extra_var in ['Unemployment_rate', 'GSVA_per_capita']:
     print(f"    {extra_var:<20} coef={m_check.params[extra_var]:>10.4f}   p(HC3)={m_check.pvalues[extra_var]:.4f}")
     vif_check = variance_inflation_factor(X_check.values, list(X_check.columns).index(extra_var))
     print(f"    VIF for {extra_var}: {vif_check:.3f}")
+    if extra_var == 'GSVA_per_capita':
+        print(f"    {extra_var}'s correlation with each confirmed candidate:")
+        for p in ALL_PREDICTORS:
+            print(f"      {p:<22} r={sub[extra_var].corr(sub[p]):.3f}")
 
 print(f"""
   Reading: this confirms, on the current 36-state sample, the exclusion
-  decisions stated in Section 5.1. Neither Unemployment_rate nor
+  decisions stated in Section 3.6 -- neither Unemployment_rate nor
   GSVA_per_capita is significant once added to the confirmed predictors,
   and GSVA_per_capita in particular carries a high VIF, consistent with the
   multicollinearity concern that originally justified dropping it.
